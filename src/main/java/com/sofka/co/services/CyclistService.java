@@ -7,16 +7,17 @@ import java.util.List;
 public interface CyclistService {
 
 
-    public List<CyclistDTO> getAllCyclistsByCyclingTeam(Long cyclingTeamId);
+    List<CyclistDTO> getAllCyclistsByCyclingTeam(Long cyclingTeamId);
 
-    public List<CyclistDTO> getAllCyclistsByCyclingTeamCode(String cyclingTeamCode);
+    List<CyclistDTO> getAllCyclistsByCyclingTeamCode(String cyclingTeamCode);
 
-    public CyclistDTO getCyclistById(Long cyclingTeamId, Long cyclistId);
+    CyclistDTO getCyclistById(Long cyclingTeamId, Long cyclistId);
 
-    public List<CyclistDTO> findByCountry(String country);
-    public CyclistDTO createCyclist(Long cyclingTeamId, CyclistDTO cyclistDTO);
+    List<CyclistDTO> findByCountry(String country);
 
-    public CyclistDTO updateCyclist(Long cyclingTeamId, Long cyclistId, CyclistDTO cyclistDTO);
+    CyclistDTO createCyclist(Long cyclingTeamId, CyclistDTO cyclistDTO);
 
-    public void deleteCyclist(Long cyclingTeamId, Long cyclistId);
+    CyclistDTO updateCyclist(Long cyclingTeamId, Long cyclistId, CyclistDTO cyclistDTO);
+
+    void deleteCyclist(Long cyclingTeamId, Long cyclistId);
 }

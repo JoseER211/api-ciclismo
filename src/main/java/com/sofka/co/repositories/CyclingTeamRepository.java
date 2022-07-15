@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CyclingTeamRepository extends JpaRepository<CyclingTeam, Long> {
 
-    public List<CyclingTeam> findByCountry(String country);
+    List<CyclingTeam> findByCountry(String country);
 
 }
 

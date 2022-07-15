@@ -48,7 +48,7 @@ public class CyclistServiceImpl implements CyclistService {
 
         Cyclist cyclist = cyclistRepository.findById(cyclistId).orElseThrow(() -> new ResourceNotFoundException("Ciclista", "id", cyclistId));
 
-        if(!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())){
+        if (!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())) {
             throw new NotEqualsException(HttpStatus.BAD_REQUEST, "El ciclista no pertenece al equipo");
         }
         return mapper.mapperCyclistToDTO(cyclist);
@@ -76,7 +76,7 @@ public class CyclistServiceImpl implements CyclistService {
 
         Cyclist cyclist = cyclistRepository.findById(cyclistId).orElseThrow(() -> new ResourceNotFoundException("Ciclista", "id", cyclistId));
 
-        if(!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())){
+        if (!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())) {
             throw new NotEqualsException(HttpStatus.BAD_REQUEST, "El ciclista no pertenece al equipo");
         }
 
@@ -94,7 +94,7 @@ public class CyclistServiceImpl implements CyclistService {
 
         Cyclist cyclist = cyclistRepository.findById(cyclistId).orElseThrow(() -> new ResourceNotFoundException("Ciclista", "id", cyclistId));
 
-        if(!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())){
+        if (!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())) {
             throw new NotEqualsException(HttpStatus.BAD_REQUEST, "El ciclista no pertenece al equipo");
         }
         cyclistRepository.delete(cyclist);

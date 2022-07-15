@@ -6,8 +6,6 @@ import com.sofka.co.entities.CyclingTeam;
 import com.sofka.co.entities.Cyclist;
 import org.springframework.stereotype.Component;
 
-import java.util.function.Function;
-
 @Component
 public class Mapper {
 

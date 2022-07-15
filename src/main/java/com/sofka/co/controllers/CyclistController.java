@@ -2,7 +2,6 @@ package com.sofka.co.controllers;
 
 import com.sofka.co.dto.CyclistDTO;
 import com.sofka.co.services.CyclistService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

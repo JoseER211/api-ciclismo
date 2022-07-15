@@ -9,11 +9,11 @@ import java.util.List;
 @Repository
 public interface CyclistRepository extends JpaRepository<Cyclist, Long> {
 
-    public List<Cyclist> findByCyclingTeamId(Long cyclingTeamId);
+    List<Cyclist> findByCyclingTeamId(Long cyclingTeamId);
 
-    public List<Cyclist> findByCyclingTeamCode(String cyclingTeamCode);
+    List<Cyclist> findByCyclingTeamCode(String cyclingTeamCode);
 
-    public List<Cyclist> findByCountry(String country);
+    List<Cyclist> findByCountry(String country);
 
 }
 

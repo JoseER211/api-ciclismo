@@ -6,19 +6,17 @@ import java.util.List;
 
 public interface CyclingTeamService {
 
-    public List<CyclingTeamDTO> getAllCyclingTeams();
+    List<CyclingTeamDTO> getAllCyclingTeams();
 
-    public CyclingTeamDTO findCyclingTeamById(Long id);
+    CyclingTeamDTO findCyclingTeamById(Long id);
 
-    public List<CyclingTeamDTO> findByCountry(String country);
+    List<CyclingTeamDTO> findByCountry(String country);
 
-    public CyclingTeamDTO createCyclingTeam(CyclingTeamDTO cyclingTeamDTO);
+    CyclingTeamDTO createCyclingTeam(CyclingTeamDTO cyclingTeamDTO);
 
-    public CyclingTeamDTO updateCyclingTeam(CyclingTeamDTO cyclingTeamDTO, Long id);
+    CyclingTeamDTO updateCyclingTeam(CyclingTeamDTO cyclingTeamDTO, Long id);
 
-    public void deleteCyclingTeam(Long id);
-
-
+    void deleteCyclingTeam(Long id);
 
 
 }
