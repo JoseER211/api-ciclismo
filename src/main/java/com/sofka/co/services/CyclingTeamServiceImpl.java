@@ -33,6 +33,12 @@ public class CyclingTeamServiceImpl implements CyclingTeamService {
     }
 
     @Override
+    public List<CyclingTeamDTO> findByCountry(String country) {
+        List<CyclingTeam> cyclingTeams = cyclingTeamRepository.findByCountry(country);
+        return cyclingTeams.stream().map(cyclingTeam -> mapper.mapperCyclingTeamToDTO(cyclingTeam)).collect(Collectors.toList());
+    }
+
+    @Override
     public CyclingTeamDTO createCyclingTeam(CyclingTeamDTO cyclingTeamDTO) {
         CyclingTeam cyclingTeam = mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO);
 

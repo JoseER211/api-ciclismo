@@ -11,5 +11,9 @@ public interface CyclistRepository extends JpaRepository<Cyclist, Long> {
 
     public List<Cyclist> findByCyclingTeamId(Long cyclingTeamId);
 
+    public List<Cyclist> findByCyclingTeamCode(String cyclingTeamCode);
+
+    public List<Cyclist> findByCountry(String country);
+
 }
 

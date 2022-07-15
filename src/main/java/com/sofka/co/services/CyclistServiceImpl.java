@@ -29,12 +29,17 @@ public class CyclistServiceImpl implements CyclistService {
     private Mapper mapper;
 
 
-
     @Override
     public List<CyclistDTO> getAllCyclistsByCyclingTeam(Long cyclingTeamId) {
         List<Cyclist> cyclists = cyclistRepository.findByCyclingTeamId(cyclingTeamId);
         return cyclists.stream().map(cyclist -> mapper.mapperCyclistToDTO(cyclist)).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public List<CyclistDTO> getAllCyclistsByCyclingTeamCode(String cyclingTeamCode) {
+        List<Cyclist> cyclists = cyclistRepository.findByCyclingTeamCode(cyclingTeamCode);
+        return cyclists.stream().map(cyclist -> mapper.mapperCyclistToDTO(cyclist)).collect(Collectors.toList());
     }
 
     @Override
@@ -48,6 +53,13 @@ public class CyclistServiceImpl implements CyclistService {
         }
         return mapper.mapperCyclistToDTO(cyclist);
     }
+
+    @Override
+    public List<CyclistDTO> findByCountry(String country) {
+        List<Cyclist> cyclists = cyclistRepository.findByCountry(country);
+        return cyclists.stream().map(cyclist -> mapper.mapperCyclistToDTO(cyclist)).collect(Collectors.toList());
+    }
+
     @Override
     public CyclistDTO createCyclist(Long cyclingTeamId, CyclistDTO cyclistDTO) {
         Cyclist cyclist = mapper.mapperCyclistDTOToEntity(cyclistDTO);
@@ -56,6 +68,37 @@ public class CyclistServiceImpl implements CyclistService {
         cyclist.setCyclingTeam(cyclingTeam);
         Cyclist newCyclist = cyclistRepository.save(cyclist);
         return mapper.mapperCyclistToDTO(newCyclist);
+    }
+
+    @Override
+    public CyclistDTO updateCyclist(Long cyclingTeamId, Long cyclistId, CyclistDTO cyclistDTO) {
+        CyclingTeam cyclingTeam = cyclingTeamRepository.findById(cyclingTeamId).orElseThrow(() -> new ResourceNotFoundException("Equipo", "id", cyclingTeamId));
+
+        Cyclist cyclist = cyclistRepository.findById(cyclistId).orElseThrow(() -> new ResourceNotFoundException("Ciclista", "id", cyclistId));
+
+        if(!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())){
+            throw new NotEqualsException(HttpStatus.BAD_REQUEST, "El ciclista no pertenece al equipo");
+        }
+
+        cyclist.setFullName(cyclistDTO.getFullName());
+        cyclist.setNumber(cyclistDTO.getNumber());
+        cyclist.setCountry(cyclistDTO.getCountry());
+
+        Cyclist newCyclist = cyclistRepository.save(cyclist);
+        return mapper.mapperCyclistToDTO(newCyclist);
+    }
+
+    @Override
+    public void deleteCyclist(Long cyclingTeamId, Long cyclistId) {
+        CyclingTeam cyclingTeam = cyclingTeamRepository.findById(cyclingTeamId).orElseThrow(() -> new ResourceNotFoundException("Equipo", "id", cyclingTeamId));
+
+        Cyclist cyclist = cyclistRepository.findById(cyclistId).orElseThrow(() -> new ResourceNotFoundException("Ciclista", "id", cyclistId));
+
+        if(!cyclist.getCyclingTeam().getId().equals(cyclingTeam.getId())){
+            throw new NotEqualsException(HttpStatus.BAD_REQUEST, "El ciclista no pertenece al equipo");
+        }
+        cyclistRepository.delete(cyclist);
+
     }
 }
 

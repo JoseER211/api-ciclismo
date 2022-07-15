@@ -10,6 +10,8 @@ public interface CyclingTeamService {
 
     public CyclingTeamDTO findCyclingTeamById(Long id);
 
+    public List<CyclingTeamDTO> findByCountry(String country);
+
     public CyclingTeamDTO createCyclingTeam(CyclingTeamDTO cyclingTeamDTO);
 
     public CyclingTeamDTO updateCyclingTeam(CyclingTeamDTO cyclingTeamDTO, Long id);

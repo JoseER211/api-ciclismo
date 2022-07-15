@@ -26,6 +26,11 @@ public class CyclingTeamController {
         return new ResponseEntity<>(cyclingTeamService.findCyclingTeamById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/query")
+    public ResponseEntity<List<CyclingTeamDTO>> findByCountry(@RequestParam String country) {
+        return new ResponseEntity<>(cyclingTeamService.findByCountry(country), HttpStatus.OK);
+    }
+
 
     @PostMapping
     public ResponseEntity<CyclingTeamDTO> createCyclingTeam(@RequestBody CyclingTeamDTO cyclingTeamDTO) {
