@@ -64,10 +64,20 @@ public class CyclistServiceImpl implements CyclistService {
     public CyclistDTO createCyclist(Long cyclingTeamId, CyclistDTO cyclistDTO) {
         Cyclist cyclist = mapper.mapperCyclistDTOToEntity(cyclistDTO);
         CyclingTeam cyclingTeam = cyclingTeamRepository.findById(cyclingTeamId).orElseThrow(() -> new ResourceNotFoundException("Equipo", "id", cyclingTeamId));
+        List<Integer> allCyclingTeam = cyclingTeamRepository.findAll().stream().flatMap(cyclingTeam1 -> cyclingTeam1.getCyclists().stream().map(Cyclist::getNumber)).collect(Collectors.toList());
+
+        if (cyclingTeam.getCyclists().size() >= 8) {
+            throw new RuntimeException("El equipo ya tiene 8 ciclistas");
+        }
+        if (allCyclingTeam.contains(cyclist.getNumber())) {
+            throw new RuntimeException("El ciclista ya pertenece a un equipo");
+
+        }
 
         cyclist.setCyclingTeam(cyclingTeam);
         Cyclist newCyclist = cyclistRepository.save(cyclist);
         return mapper.mapperCyclistToDTO(newCyclist);
+
     }
 
     @Override
