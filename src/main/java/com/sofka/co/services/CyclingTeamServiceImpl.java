@@ -15,15 +15,20 @@ import java.util.stream.Collectors;
 public class CyclingTeamServiceImpl implements CyclingTeamService {
 
     @Autowired
-    private CyclingTeamRepository cyclingTeamRepository;
+    private final CyclingTeamRepository cyclingTeamRepository;
 
     @Autowired
-    private Mapper mapper;
+    private final Mapper mapper;
+
+    public CyclingTeamServiceImpl(CyclingTeamRepository cyclingTeamRepository, Mapper mapper) {
+        this.cyclingTeamRepository = cyclingTeamRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<CyclingTeamDTO> getAllCyclingTeams() {
         List<CyclingTeam> cyclingTeams = cyclingTeamRepository.findAll();
-        return cyclingTeams.stream().map(cyclingTeam -> mapper.mapperCyclingTeamToDTO(cyclingTeam)).collect(Collectors.toList());
+        return cyclingTeams.stream().map(mapper::mapperCyclingTeamToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -35,7 +40,7 @@ public class CyclingTeamServiceImpl implements CyclingTeamService {
     @Override
     public List<CyclingTeamDTO> findByCountry(String country) {
         List<CyclingTeam> cyclingTeams = cyclingTeamRepository.findByCountry(country);
-        return cyclingTeams.stream().map(cyclingTeam -> mapper.mapperCyclingTeamToDTO(cyclingTeam)).collect(Collectors.toList());
+        return cyclingTeams.stream().map(mapper::mapperCyclingTeamToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -44,9 +49,8 @@ public class CyclingTeamServiceImpl implements CyclingTeamService {
 
         CyclingTeam newCyclingTeam = cyclingTeamRepository.save(cyclingTeam);
 
-        CyclingTeamDTO newCyclingTeamDTO = mapper.mapperCyclingTeamToDTO(newCyclingTeam);
+        return mapper.mapperCyclingTeamToDTO(newCyclingTeam);
 
-        return newCyclingTeamDTO;
 
     }
 

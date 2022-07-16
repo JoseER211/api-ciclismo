@@ -20,26 +20,31 @@ public class CyclistServiceImpl implements CyclistService {
 
 
     @Autowired
-    private CyclistRepository cyclistRepository;
+    private final CyclistRepository cyclistRepository;
 
     @Autowired
-    private CyclingTeamRepository cyclingTeamRepository;
+    private final CyclingTeamRepository cyclingTeamRepository;
 
     @Autowired
-    private Mapper mapper;
+    private final Mapper mapper;
 
+    public CyclistServiceImpl(CyclistRepository cyclistRepository, CyclingTeamRepository cyclingTeamRepository, Mapper mapper) {
+        this.cyclistRepository = cyclistRepository;
+        this.cyclingTeamRepository = cyclingTeamRepository;
+        this.mapper = mapper;
+    }
 
     @Override
     public List<CyclistDTO> getAllCyclistsByCyclingTeam(Long cyclingTeamId) {
         List<Cyclist> cyclists = cyclistRepository.findByCyclingTeamId(cyclingTeamId);
-        return cyclists.stream().map(cyclist -> mapper.mapperCyclistToDTO(cyclist)).collect(Collectors.toList());
+        return cyclists.stream().map(mapper::mapperCyclistToDTO).collect(Collectors.toList());
 
     }
 
     @Override
     public List<CyclistDTO> getAllCyclistsByCyclingTeamCode(String cyclingTeamCode) {
         List<Cyclist> cyclists = cyclistRepository.findByCyclingTeamCode(cyclingTeamCode);
-        return cyclists.stream().map(cyclist -> mapper.mapperCyclistToDTO(cyclist)).collect(Collectors.toList());
+        return cyclists.stream().map(mapper::mapperCyclistToDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -57,7 +62,7 @@ public class CyclistServiceImpl implements CyclistService {
     @Override
     public List<CyclistDTO> findByCountry(String country) {
         List<Cyclist> cyclists = cyclistRepository.findByCountry(country);
-        return cyclists.stream().map(cyclist -> mapper.mapperCyclistToDTO(cyclist)).collect(Collectors.toList());
+        return cyclists.stream().map(mapper::mapperCyclistToDTO).collect(Collectors.toList());
     }
 
     @Override
