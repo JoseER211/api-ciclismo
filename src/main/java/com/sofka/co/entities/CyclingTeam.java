@@ -1,8 +1,5 @@
 package com.sofka.co.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,7 +33,6 @@ public class CyclingTeam {
 
     @OneToMany(mappedBy = "cyclingTeam", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Cyclist> cyclists = new HashSet<>();
-
 
 
 }

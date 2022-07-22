@@ -15,26 +15,24 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class CyclistServiceTest {
 
+    private final Mapper mapper = new Mapper();
     @Mock
     private CyclistRepository cyclistRepository;
-
     @Mock
     private CyclingTeamRepository cyclingTeamRepository;
-
     private CyclistService cyclistService;
-
-    private final Mapper mapper = new Mapper();
-
     private CyclingTeam cyclingTeam;
     private CyclingTeamDTO cyclingTeamDTO;
 
@@ -42,7 +40,6 @@ class CyclistServiceTest {
     private CyclingTeamDTO cyclingTeamDTO2;
     private Cyclist cyclist;
     private CyclistDTO cyclistDTO;
-
 
 
     @BeforeEach
@@ -102,8 +99,9 @@ class CyclistServiceTest {
 
 
     }
+
     @Test
-    void getCyclistByIdUnhappyPass(){
+    void getCyclistByIdUnhappyPass() {
 
         cyclist.setCyclingTeam(cyclingTeam2);
 
@@ -130,7 +128,7 @@ class CyclistServiceTest {
     }
 
     @Test
-    void createCyclistUnhappyPass(){
+    void createCyclistUnhappyPass() {
 
         Set<Cyclist> cyclists = new HashSet<>();
         cyclists.add(new Cyclist());
@@ -159,7 +157,7 @@ class CyclistServiceTest {
     }
 
     @Test
-    void updateCyclistUnhappyPass(){
+    void updateCyclistUnhappyPass() {
         cyclist.setCyclingTeam(cyclingTeam2);
         Mockito.when(cyclingTeamRepository.findById(cyclingTeam.getId())).thenReturn(Optional.ofNullable(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
         Mockito.when(cyclistRepository.findById(cyclist.getId())).thenReturn(Optional.ofNullable(cyclist));
@@ -175,8 +173,9 @@ class CyclistServiceTest {
         Assertions.assertEquals(0, 0);
 
     }
+
     @Test
-    void deleteCyclistUnHappyPass(){
+    void deleteCyclistUnHappyPass() {
         cyclist.setCyclingTeam(cyclingTeam2);
         Mockito.when(cyclingTeamRepository.findById(cyclingTeam.getId())).thenReturn(Optional.ofNullable(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
         Mockito.when(cyclistRepository.findById(cyclist.getId())).thenReturn(Optional.ofNullable(cyclist));

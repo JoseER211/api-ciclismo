@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,12 +34,12 @@ public class CyclingTeamController {
 
 
     @PostMapping
-    public ResponseEntity<CyclingTeamDTO> createCyclingTeam(@RequestBody CyclingTeamDTO cyclingTeamDTO) {
+    public ResponseEntity<CyclingTeamDTO> createCyclingTeam(@Valid @RequestBody CyclingTeamDTO cyclingTeamDTO) {
         return new ResponseEntity<>(cyclingTeamService.createCyclingTeam(cyclingTeamDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CyclingTeamDTO> updateCyclingTeam(@RequestBody CyclingTeamDTO cyclingTeamDTO, @PathVariable Long id) {
+    public ResponseEntity<CyclingTeamDTO> updateCyclingTeam(@Valid @RequestBody CyclingTeamDTO cyclingTeamDTO, @PathVariable Long id) {
         return new ResponseEntity<>(cyclingTeamService.updateCyclingTeam(cyclingTeamDTO, id), HttpStatus.CREATED);
     }
 
