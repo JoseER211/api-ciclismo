@@ -16,6 +16,7 @@ public class Mapper {
         cyclingTeamDTO.setName(cyclingTeam.getName());
         cyclingTeamDTO.setCode(cyclingTeam.getCode());
         cyclingTeamDTO.setCountry(cyclingTeam.getCountry());
+        cyclingTeamDTO.setCyclists(cyclingTeam.getCyclists());
 
         return cyclingTeamDTO;
 
@@ -28,6 +29,7 @@ public class Mapper {
         cyclingTeam.setName(cyclingTeamDTO.getName());
         cyclingTeam.setCode(cyclingTeamDTO.getCode());
         cyclingTeam.setCountry(cyclingTeamDTO.getCountry());
+        cyclingTeam.setCyclists(cyclingTeamDTO.getCyclists());
 
         return cyclingTeam;
 
