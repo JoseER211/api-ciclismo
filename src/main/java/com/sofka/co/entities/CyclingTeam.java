@@ -30,6 +30,7 @@ public class CyclingTeam {
     @Column(name = "country", nullable = false)
     private String country;
 
+
     @OneToMany(mappedBy = "cyclingTeam", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Cyclist> cyclists = new HashSet<>();
 

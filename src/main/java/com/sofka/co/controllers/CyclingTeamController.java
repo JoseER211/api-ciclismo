@@ -5,8 +5,11 @@ import com.sofka.co.services.CyclingTeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -31,17 +34,19 @@ public class CyclingTeamController {
         return new ResponseEntity<>(cyclingTeamService.findByCountry(country), HttpStatus.OK);
     }
 
-
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<CyclingTeamDTO> createCyclingTeam(@RequestBody CyclingTeamDTO cyclingTeamDTO) {
+    public ResponseEntity<CyclingTeamDTO> createCyclingTeam(@Valid @RequestBody CyclingTeamDTO cyclingTeamDTO) {
         return new ResponseEntity<>(cyclingTeamService.createCyclingTeam(cyclingTeamDTO), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<CyclingTeamDTO> updateCyclingTeam(@RequestBody CyclingTeamDTO cyclingTeamDTO, @PathVariable Long id) {
+    public ResponseEntity<CyclingTeamDTO> updateCyclingTeam(@Valid @RequestBody CyclingTeamDTO cyclingTeamDTO, @PathVariable Long id) {
         return new ResponseEntity<>(cyclingTeamService.updateCyclingTeam(cyclingTeamDTO, id), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCyclingTeam(@PathVariable Long id) {
         cyclingTeamService.deleteCyclingTeam(id);

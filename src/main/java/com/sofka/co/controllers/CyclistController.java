@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -39,12 +40,12 @@ public class CyclistController {
 
 
     @PostMapping("/cyclingteams/{cyclingTeamId}/cyclists")
-    public ResponseEntity<CyclistDTO> createCyclist(@PathVariable Long cyclingTeamId, @RequestBody CyclistDTO cyclistDTO) {
+    public ResponseEntity<CyclistDTO> createCyclist(@PathVariable Long cyclingTeamId, @Valid @RequestBody CyclistDTO cyclistDTO) {
         return new ResponseEntity<>(cyclistService.createCyclist(cyclingTeamId, cyclistDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/cyclingteams/{cyclingTeamId}/cyclists/{cyclistId}")
-    public ResponseEntity<CyclistDTO> updateCyclist(@PathVariable Long cyclingTeamId, @PathVariable Long cyclistId, @RequestBody CyclistDTO cyclistDTO) {
+    public ResponseEntity<CyclistDTO> updateCyclist(@PathVariable Long cyclingTeamId, @PathVariable Long cyclistId, @Valid @RequestBody CyclistDTO cyclistDTO) {
         return new ResponseEntity<>(cyclistService.updateCyclist(cyclingTeamId, cyclistId, cyclistDTO), HttpStatus.CREATED);
     }
 

@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,12 +34,13 @@ class CyclingTeamServiceTest {
         cyclingTeamService = new CyclingTeamServiceImpl(cyclingTeamRepository, mapper);
 
         cyclingTeam = new CyclingTeam();
-        cyclingTeamDTO = new CyclingTeamDTO(1L, "Team1", "spa", "Spain");
+        cyclingTeamDTO = new CyclingTeamDTO(1L, "Team1", "spa", "Spain", new HashSet<>());
 
         cyclingTeam.setId(cyclingTeamDTO.getId());
         cyclingTeam.setName(cyclingTeamDTO.getName());
         cyclingTeam.setCode(cyclingTeamDTO.getCode());
         cyclingTeam.setCountry(cyclingTeamDTO.getCountry());
+        cyclingTeam.setCyclists(cyclingTeamDTO.getCyclists());
 
     }
 
@@ -54,33 +56,34 @@ class CyclingTeamServiceTest {
     }
 
     @Test
-    void findCyclingTeamById() {
+    void findCyclingTeamByIdHappyPass() {
         Mockito.when(cyclingTeamRepository.findById(cyclingTeam.getId())).thenReturn(Optional.ofNullable(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
 
         assertNotNull(cyclingTeamService.findCyclingTeamById(cyclingTeam.getId()));
     }
 
     @Test
-    void findByCountry() {
+    void findByCountryHappyPass() {
         Mockito.when(cyclingTeamRepository.findByCountry(cyclingTeam.getCountry())).thenReturn(List.of(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
 
         assertNotNull(cyclingTeamService.findByCountry(cyclingTeam.getCountry()));
     }
 
     @Test
-    void createCyclingTeam() {
+    void createCyclingTeamHappyPass() {
         Mockito.when(cyclingTeamRepository.save(Mockito.any(CyclingTeam.class))).thenReturn(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO));
 
         assertNotNull(cyclingTeamService.createCyclingTeam(cyclingTeamDTO));
     }
 
     @Test
-    void updateCyclingTeam() {
+    void updateCyclingTeamHappyPass() {
         Mockito.when(cyclingTeamRepository.findById(cyclingTeam.getId())).thenReturn(Optional.ofNullable(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
 
         cyclingTeam.setName(cyclingTeamDTO.getName());
         cyclingTeam.setCode(cyclingTeamDTO.getCode());
         cyclingTeam.setCountry(cyclingTeamDTO.getCountry());
+        cyclingTeam.setCyclists(cyclingTeamDTO.getCyclists());
 
         Mockito.when(cyclingTeamRepository.save(Mockito.any(CyclingTeam.class))).thenReturn(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO));
 
@@ -88,11 +91,12 @@ class CyclingTeamServiceTest {
     }
 
     @Test
-    void deleteCyclingTeam() {
+    void deleteCyclingTeamHappyPass() {
         Mockito.when(cyclingTeamRepository.findById(cyclingTeam.getId())).thenReturn(Optional.ofNullable(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
 
         cyclingTeamService.deleteCyclingTeam(cyclingTeam.getId());
         Assertions.assertEquals(0, 0);
 
     }
+
 }

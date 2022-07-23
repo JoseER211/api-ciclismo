@@ -1,5 +1,6 @@
 package com.sofka.co.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class Cyclist {
     @Column(name = "country", nullable = false)
     private String country;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cycling_team_id", nullable = false)
     private CyclingTeam cyclingTeam;
