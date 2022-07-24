@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.SecretKey;
 import java.util.Date;
 
 @Component
@@ -19,7 +18,6 @@ public class JwtTokenProvider {
 
     @Value("${app.jwt-expiration-milliseconds}")
     private Integer jwtExpirationInMilliseconds;
-
 
 
     public String generateToken(Authentication authentication) {

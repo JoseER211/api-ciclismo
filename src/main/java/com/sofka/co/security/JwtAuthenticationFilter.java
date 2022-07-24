@@ -5,7 +5,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -29,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = getJWTFromRequest(request);
 
         // Validamos el token.
-        if (StringUtils.hasText(token) && jwtTokenProvider.ValidatedToken(token)){
+        if (StringUtils.hasText(token) && jwtTokenProvider.ValidatedToken(token)) {
 
             // Obtenemos el username del token.
             String username = jwtTokenProvider.getUsernameFromToken(token);

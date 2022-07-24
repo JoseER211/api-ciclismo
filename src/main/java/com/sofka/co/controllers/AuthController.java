@@ -9,7 +9,6 @@ import com.sofka.co.repositories.RoleRepository;
 import com.sofka.co.repositories.UserRepository;
 import com.sofka.co.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,11 +54,11 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> userRegister(@RequestBody RegisterDTO registerDTO){
-        if(userRepository.existsByUsername(registerDTO.getUsername())){
+    public ResponseEntity<?> userRegister(@RequestBody RegisterDTO registerDTO) {
+        if (userRepository.existsByUsername(registerDTO.getUsername())) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
-        if(userRepository.existsByEmail(registerDTO.getEmail())){
+        if (userRepository.existsByEmail(registerDTO.getEmail())) {
             return new ResponseEntity<>("Username already exists", HttpStatus.BAD_REQUEST);
         }
         User user = new User();
