@@ -27,6 +27,7 @@ public class CyclingTeam {
     @Column(name = "code", length = 3, unique = true, nullable = false)
     private String code;
 
+
     @Column(name = "country", nullable = false)
     private String country;
 
