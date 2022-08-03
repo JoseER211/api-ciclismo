@@ -2,6 +2,7 @@ package com.sofka.co.services;
 
 import com.sofka.co.dto.CyclingTeamDTO;
 import com.sofka.co.entities.CyclingTeam;
+import com.sofka.co.exceptions.ResourceNotFoundException;
 import com.sofka.co.repositories.CyclingTeamRepository;
 import com.sofka.co.utils.Mapper;
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class CyclingTeamServiceTest {
@@ -36,11 +37,7 @@ class CyclingTeamServiceTest {
         cyclingTeam = new CyclingTeam();
         cyclingTeamDTO = new CyclingTeamDTO(1L, "Team1", "spa", "Spain", new HashSet<>());
 
-        cyclingTeam.setId(cyclingTeamDTO.getId());
-        cyclingTeam.setName(cyclingTeamDTO.getName());
-        cyclingTeam.setCode(cyclingTeamDTO.getCode());
-        cyclingTeam.setCountry(cyclingTeamDTO.getCountry());
-        cyclingTeam.setCyclists(cyclingTeamDTO.getCyclists());
+        cyclingTeam = mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO);
 
     }
 
@@ -51,6 +48,8 @@ class CyclingTeamServiceTest {
         Mockito.when(cyclingTeamRepository.findAll()).thenReturn(List.of(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
 
         assertNotNull(cyclingTeamService.getAllCyclingTeams());
+        assertEquals(1, cyclingTeamService.getAllCyclingTeams().size());
+
 
 
     }
@@ -60,6 +59,10 @@ class CyclingTeamServiceTest {
         Mockito.when(cyclingTeamRepository.findById(cyclingTeam.getId())).thenReturn(Optional.ofNullable(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
 
         assertNotNull(cyclingTeamService.findCyclingTeamById(cyclingTeam.getId()));
+        assertEquals(1L, cyclingTeamService.findCyclingTeamById(cyclingTeam.getId()).getId());
+       // assertThrows(ResourceNotFoundException.class, () -> cyclingTeamService.findCyclingTeamById(2L));
+
+
     }
 
     @Test
@@ -67,6 +70,7 @@ class CyclingTeamServiceTest {
         Mockito.when(cyclingTeamRepository.findByCountry(cyclingTeam.getCountry())).thenReturn(List.of(mapper.mapperCyclingTeamDTOToEntity(cyclingTeamDTO)));
 
         assertNotNull(cyclingTeamService.findByCountry(cyclingTeam.getCountry()));
+        assertEquals(1, cyclingTeamService.findByCountry(cyclingTeam.getCountry()).size());
     }
 
     @Test
